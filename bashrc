@@ -3,6 +3,7 @@
 # for examples. 
 # enter sheel-script-mode in emacs: M-x shell-script-mode.
 export PATH=/home/perl/bin:$PATH
+export PATH=~/bin/:$PATH # This is where the alias-scripts are stored
 #export BAIL_ON_FAIL=1 Dangerous because it is being transferred to buildhosts
 
 # If not running interactively, don't do anything
@@ -161,28 +162,28 @@ fi
 
 
 ## Added February 7, 2015 START
-export PATH=/home/thor/osm/bin:$PATH
+export PATH=~/osm/bin:$PATH
 ## Added February 7, 2015 END
 
 ## Added February 14, 2015 END
-export PATH=/home/thor/scripts/:$PATH
+export PATH=~/scripts/:$PATH
 ## Added February 14, 2015 END
 
 ## For GCC cross compiler to MIPS32
-export PATH=/home/thor/opt/cross/bin:$PATH
+export PATH=~/opt/cross/bin:$PATH
 
 ## Added June 26, 2015 START
-LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
+LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LIBRARY_PATH
 LIBRARY_PATH=/usr/lib32:$LIBRARY_PATH
 export LIBRARY_PATH
 ## Added June 26, 2015 END
 
 # Used for Daggerc/stack
-export PATH=/home/thv/.local/bin:$PATH
+export PATH=~/.local/bin:$PATH
 
 # Used for visual studio code
-export PATH=/home/thv/.local/share/umake/ide/visual-studio-code/:$PATH
+export PATH=~/.local/share/umake/ide/visual-studio-code/:$PATH
 ## golang specific commands START
-##[[ -s "/home/thor/.gvm/scripts/gvm" ]] && source "/home/thor/.gvm/scripts/gvm"
+##[[ -s "~/.gvm/scripts/gvm" ]] && source "~/.gvm/scripts/gvm"
 ##gvm use go1.4.2 > /dev/null
 ## golang specific commands END
