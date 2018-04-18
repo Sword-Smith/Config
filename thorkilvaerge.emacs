@@ -26,6 +26,7 @@
 (setq tab-width 4)             ; tab is four spaces
 (setq-default indent-tabs-mode nil) ; indent with spaces, not tabs
 (prefer-coding-system 'utf-8)  ; Resolve encoding probs when loading packages
+(setq visible-bell 1)          ; Emacs should be seen and not heard.
 
 (defalias 'yes-or-no-p 'y-or-n-p) ; Answer yes/no questions with y/n keys
 
@@ -143,12 +144,11 @@
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")
-                         ("user42" . "http://download.tuxfamily.org/user42/elpa/packages/")))
+                         ("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
 
 ;; ;;; Prolog mode
-;; ;; (setq load-path (cons "~/.emacs.d/site-lisp/prolog/prolog.el" load-path))
+;; ;; (setq load-path (cons "~/.emacs.d/site-lisp/prolog/prolog.el" "~/.emacs.d/elpa/solarized-theme-20180316.859" load-path))
 ;; ;; (autoload 'run-prolog "prolog" "Start a Prolog sub-process." t)
 ;; ;; (autoload 'prolog-mode "prolog" "Major mode for editing prolog programs." t)
 ;; ;; (setq prolog-system 'swi) ; prolog-system below for possible values
@@ -157,17 +157,55 @@
 
 ;; ;; Automatically install the following packages
 
-;; ; only do this every ten times
-;; (if (> (random 10) 8)
-;; (package-refresh-contents))
+; only do this every ten times
+(if (> (random 10) 8)
+(package-refresh-contents))
 
 (setq auto-install-packages
-      '(bar-cursor htmlize flycheck flycheck-haskell
+      '(bar-cursor htmlize flycheck flycheck-haskell color-theme-modern
                     haskell-mode sml-mode rust-mode fsharp-mode nasm-mode go-mode
-                    perl-mode web-mode )) ;;ffap-perl-module markdown-mode))
+                    perl-mode web-mode solarized-theme)) ;;ffap-perl-module markdown-mode))
 (dolist (pkg auto-install-packages)
   (unless (package-installed-p pkg)
     (package-install pkg)))
+
+(load-theme 'standard)
+(enable-theme 'standard)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(auto-insert-alist
+   '(((".pl" . "Perl script")
+      . "perl.pl")
+     (("/t/lib/JIX/Mojo/.*.pm" . "Mojo Test")
+      .
+      ["perlmojotest.pm" jix/expand-package-name])
+     (("/lib/JIX/Mojo/.*.pm" . "Mojo controller")
+      .
+      ["perlmojo.pm" jix/expand-package-name])
+     (("/t/lib/JIX/.*.pm" . "Test module")
+      .
+      ["perltest.pm" jix/expand-package-name])
+     (("/lib/JIX/Service/Object/.*.pm" . "Service object")
+      .
+      ["perlservice.pm" jix/expand-package-name])
+     (("/lib/JIX/View/.*.pm" . "View module")
+      .
+      ["perlview.pm" jix/expand-package-name])
+     (("/lib/JIX/.*.pm" . "Perl module")
+      .
+      ["perl.pm" jix/expand-package-name])))
+ '(auto-insert-directory "~/dev-utils/conf/skeletons/")
+ '(auto-insert-query nil)
+ '(custom-safe-themes
+   '("ff8c6c2eb94e776c9eed9299a49e07e70e1b6a6f926dec429b99cf5d1ddca62a" "05d009b7979e3887c917ef6796978d1c3bbe617e6aa791db38f05be713da0ba0" "a455366c5cdacebd8adaa99d50e37430b0170326e7640a688e9d9ad406e2edfd" "be5b03913a1aaa3709d731e1fcfd4f162db6ca512df9196c8d4693538fa50b86" default))
+ '(global-flycheck-mode t)
+ '(package-selected-packages
+   '(solarized-theme color-theme-tango solidity-mode color-theme-actress color-theme-x less-css-mode ffap-perl-module autumn-light-theme white-sand-theme color-theme-modern color-theme-cobalt portage-navi perlcritic multi-web-mode web-mode sml-mode rust-mode nasm-mode htmlize go-mode fsharp-mode flycheck-haskell color-theme bar-cursor)))
+
 
 ;; ;; Font -- make sure it's installed
 ;; ;(set-frame-font "Inconsolata-13")
@@ -187,38 +225,7 @@
 ;; Flycheck
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(auto-insert-alist
-   (quote
-    (((".pl" . "Perl script")
-      . "perl.pl")
-     (("/t/lib/JIX/Mojo/.*.pm" . "Mojo Test")
-      .
-      ["perlmojotest.pm" jix/expand-package-name])
-     (("/lib/JIX/Mojo/.*.pm" . "Mojo controller")
-      .
-      ["perlmojo.pm" jix/expand-package-name])
-     (("/t/lib/JIX/.*.pm" . "Test module")
-      .
-      ["perltest.pm" jix/expand-package-name])
-     (("/lib/JIX/Service/Object/.*.pm" . "Service object")
-      .
-      ["perlservice.pm" jix/expand-package-name])
-     (("/lib/JIX/View/.*.pm" . "View module")
-      .
-      ["perlview.pm" jix/expand-package-name])
-     (("/lib/JIX/.*.pm" . "Perl module")
-      .
-      ["perl.pm" jix/expand-package-name]))))
- '(auto-insert-directory "~/dev-utils/conf/skeletons/")
- '(auto-insert-query nil)
- '(package-selected-packages
-   (quote
-    (color-theme-actress color-theme-x less-css-mode ffap-perl-module autumn-light-theme white-sand-theme color-theme-modern color-theme-cobalt portage-navi perlcritic multi-web-mode web-mode sml-mode rust-mode nasm-mode htmlize go-mode fsharp-mode flycheck-haskell color-theme bar-cursor))))
+
 
 ;;Prolog
 ;; (setq prolog-system 'swi) ; prolog-system below for possible values
@@ -237,8 +244,11 @@
 (require 'haskell-process)
 (add-hook 'haskell-mode-hook 'haskell-indentation-mode)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
+;;(eval-after-load 'flycheck
+;;  '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
+
+
+;;(eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
 
 ;; Markdown
 (add-to-list 'auto-mode-alist '("\\.md" . markdown-mode))
@@ -289,9 +299,10 @@
   )
 (add-hook 'web-mode-hook 'my-web-mode-hook)
 
-
 (package-initialize)
-(load-theme 'deeper-blue t)
+
+(load-theme 'standard)
+(enable-theme 'standard)
 
 (provide '.emacs)
 ;;; .emacs ends here
