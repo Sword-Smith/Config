@@ -148,7 +148,8 @@ fi
 if [ $(prompt_user 'cpanminus') = '1' ]
 then
     echo "*** cpanminus ***"
-    sudo apt-get install cpanminus
+    curl -L https://cpanmin.us | perl - --sudo App::cpanminus
+    sudo cpanm --self-upgrade
 fi
 
 if [ $(prompt_user 'pdflatex') = '1' ]
