@@ -304,7 +304,8 @@ ignores = (
       "#git",
       "#oidentd",
       "#freenode",
-      "#ubuntu"
+      "#ubuntu",
+      '##crypto'
     );
   }
 );
