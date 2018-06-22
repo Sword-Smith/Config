@@ -24,6 +24,14 @@ echo "Running apt-get update"
 sudo apt-get update
 sudo apt-get install software-properties-common python-software-properties
 
+if [ $(prompt_user "python-pip") = '1' ]
+then
+  echo "*** Installing Python-pip ***"
+  sudo apt install python-pip python-dev build-essential
+  sudo pip install --upgrade pip
+  sudo pip install --upgrade virtualenv
+fi
+
 if [ $(prompt_user "Spotify") = '1' ]
 then
     echo "*** Updating repository data for Spotify ***"
