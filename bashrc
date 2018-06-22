@@ -88,8 +88,10 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# force the use of python3
+alias python=python3
+
 # trim terminal prompt
-export PROMPT_COMMAND='PS1="$(python ~/scripts/short.pwd.py)"'
 export EDITOR='emacs -nw'
 
 # some more ls aliases
@@ -124,7 +126,7 @@ alias gdn='git diff --name-only'
 alias gdc='git diff --cached'
 alias gdcn='git diff --cached --name-only'
 alias gcfh='git diff-tree --no-commit-id --name-only -r HEAD'
-alias gcf='git diff-tree --no-commit-id --name-only -r' # show changed files in specified commit
+alias gcf='git diff-tree --no-commit-id --name-only -r' # show changed files
 alias gcoi='git diff --name-only | xargs -n 1 -p git checkout'
 alias gri='git diff --cached --name-only | xargs -n 1 -p git reset HEAD'
 alias gai='git diff --name-only | xargs -n 1 -p git add'
